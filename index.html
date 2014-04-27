@@ -1,2 +1,84 @@
-<html>
-</html>
+<!DOCTYPE HTML>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>NominateIt</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<link rel="shortcut icon" href="">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+	<meta name="description" content="">
+	<link rel="canonical" href="">
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-mobile.js"></script>
+	<script src="js/jquery-infinitscrolling-plugin.js"></script>
+	<script src="js/modernizr.js"></script>
+	<script src="js/custom.min.js"></script>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/jquery-mobile.css">
+</head>
+<body>
+
+<div data-role="page" id="page1">
+	<a href="#menu" id="menulink">Menü</a>
+	<div data-role="panel" id="menu" data-position="right" data-display="push">
+		<nav>
+			<ul>
+				<li><input type="text" onkeyup="search(this.value)" name="name" id="search" placeholder="Suche..." value="" data-mini="true" /></li>
+				<li><a href="javascript:void(0)" onclick="reload()">Neu laden</a></li>
+				<li><a data-rel="dialog" href="#dialogPageAdd">+ Kandidat</a></li>
+			</ul>
+		</nav>
+	</div>
+	<section>
+	  <div data-role="header" id="page1Header">
+    <a href="#" onclick="location.reload(true)">Refresh</a><h2>NominateIt</h2>
+  </div>
+		<!-- <article id="article_none" data-count="none" class="articles" style="display:none;"><figure id="article-img_none"><object data="src/images/no_image.svg" type="image/svg+xml"></object></figure><header></header><p></p><div id="awards_none"><figure id="awards-img_none"><object data="src/images/no_award.svg" type="image/svg+xml"></object></figure></div><div id="nominate_none"></div><div id="opinion_none"></div></article>  -->
+	<div class="clear"></div>
+	</section>
+	<aside>	</aside>
+	<footer><center><img id="waiting_img" style="display:none;"src="images/waiting_bar.gif"></center><button id="btn_more" onclick="moreRows();" >zeige noch einen</button></footer>
+</div>
+
+<div data-role="dialog" id="dialogPageAdd">
+  <div data-role="header" id="dialogPageAddHeader">
+    <h2>Nominierungsvorschlag</h2>
+		<div id="add">
+				<form name="add_form" id="add_form" action="" method="POST">
+				<div role="main" class="ui-content" id="dialogContent">
+				<input placeholder="Bezeichnung oder Name" type="text" name="title" />
+				<input placeholder="Begründung" type="text" name="description" />
+				<input placeholder="Dein Kategorievorschlag" type="text" name="suggestion" />
+				<input type="hidden" name="ip" />
+				<button type="button" id="submit" onclick="saveform('add_form');">speichern</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div data-role="page" id="dialogPage">
+  <div data-role="header" id="dialogHeader">
+    <a href="#" data-rel="back">back</a><h2>Dialog</h2>
+  </div>
+  <div class="clear"></div>
+  <form name="opinion_form" id="opinion_form" action="" method="POST">
+  <div role="main" class="ui-content" id="dialogContent">
+  	<h3>Nominieren für: </h3>
+    <a data-role="button" id="dialogNominateNow" class="save">Jetzt nominieren</a>
+    <div id="dialogOpinionNow">
+	    <h3>Ist diese Auszeichnung gerechtfertigt?</h3>
+	    <div data-role="fieldcontain">
+	    	<fieldset data-role="controlgroup">
+			    <input type="radio" name="opinion" id="opinion-1" value="j" /><label for="opinion-1">ja</label>
+			    <input type="radio" name="opinion" id="opinion-2" value="0" /><label for="opinion-2">egal</label>
+			    <input type="radio" name="opinion" id="opinion-3" value="n" /><label for="opinion-3">nein</label>
+		    </fieldset>
+		</div>
+	    <textarea name="comment" value="" placeholder="Dein Kommentar"></textarea>
+	    <a data-role="button" data-rel="submit" id="dialogOpinionForm" class="save">Submit</a>
+  	</div>
+  </div>
+  </form>
+</div>
+</body>
+<html></html>
