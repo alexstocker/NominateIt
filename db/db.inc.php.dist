@@ -1,0 +1,6 @@
+<?
+// Set Database credentials
+define("DB_USERNAME", "user");
+define("DB_PASSWORD", "pw");
+define("DB_DATABASE", "db");
+define('DB_SERVER', 'localhost');

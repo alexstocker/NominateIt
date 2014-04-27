@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="80"
+   height="88"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="no_image.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="350"
+     inkscape:cy="91.428571"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1169"
+     inkscape:window-height="606"
+     inkscape:window-x="1920"
+     inkscape:window-y="487"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-964.36218)">
+    <path
+       style="fill:#ececec;stroke:#000000;stroke-width:0.18235876;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+       d="m 1.0197333,965.66763 72.9434967,4.16821 5.731278,82.32196 -78.6747747,0 z"
+       id="rect2985"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="/home/elex/workspace/demos/sc/src/images/no_image.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g3048"
+       transform="matrix(0.18235875,0,0,0.18235875,-26.073564,916.00001)"
+       inkscape:export-filename="/home/elex/workspace/demos/sc/src/images/no_image.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2989"
+         d="m 358.90451,339.36779 c -47.42959,0 -85.876,41.90825 -85.876,93.60059 0,13.87029 2.76702,27.03762 7.73424,38.8781 23.04424,-13.72686 51.67425,-21.84712 82.69836,-21.84712 27.7404,0 53.57311,6.49283 75.20395,17.68244 3.93733,-10.73614 6.11544,-22.44541 6.11544,-34.71342 0,-51.69234 -38.44641,-93.60059 -85.87599,-93.60059 z"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.6900292;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         sodipodi:nodetypes="cscsssc"
+         inkscape:connector-curvature="0"
+         id="path2993"
+         d="m 496.17111,705.20535 c 0.37653,-0.28515 -16.12085,-129.68626 -136.55349,-128.01231 -94.0469,1.3072 -132.14197,123.48691 -132.14197,123.48691 -12.3587,-22.65079 -19.40563,-48.69938 -19.40563,-76.44339 0,-87.129 69.41428,-157.77031 155.04113,-157.77031 85.62685,0 155.04113,70.64131 155.04113,157.77031 0,29.60861 -8.03692,57.2948 -21.98117,80.96879 z"
+         style="fill:#ffffff;stroke:#000000;stroke-width:0.92202473;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+  </g>
+</svg>

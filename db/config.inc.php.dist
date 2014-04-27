@@ -1,0 +1,4 @@
+<?
+define('ABS_ROOT_PATH','/var/www/demos/sc');
+define('ROOT_PATH','/sc');
+define('TMP_PDF_PATH','/tmp/');
