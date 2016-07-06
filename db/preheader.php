@@ -1,146 +1,142 @@
 <?php
-	include_once 'db.inc.php';
-	/* you SHOULD edit the database details below; fill in your database info */
+include_once 'db.inc.php';
 
-	#this is the info for your database connection
-	####################################################################################
-	##
-	$MYSQL_HOST = DB_SERVER;
-	$MYSQL_LOGIN = DB_USERNAME;
-	$MYSQL_PASS = DB_PASSWORD;
-	$MYSQL_DB = DB_DATABASE;
-    ##
-    ####################################################################################
+$MYSQL_HOST = DB_SERVER;
+$MYSQL_LOGIN = DB_USERNAME;
+$MYSQL_PASS = DB_PASSWORD;
+$MYSQL_DB = DB_DATABASE;
 
-	/********* THERE SHOULD BE NO NEED TO EDIT BELOW THIS LINE *******/
+session_start();
 
-	####################################################################################
+error_reporting(E_ALL - E_NOTICE);
 
-	#a session variable is set by class for much of the CRUD functionality -- eg adding a row
-    //session_start();
+// Create connection
+$db = new mysqli($MYSQL_HOST,$MYSQL_LOGIN,$MYSQL_PASS,$MYSQL_DB);
+// Check connection
+if ($db->connect_error) {
+	die("Connection failed: " . $db->connect_error);
+}
 
-    #for pesky IIS configurations without silly notifications turned off
-    error_reporting(E_ALL - E_NOTICE);
+if(!$db){
+	echo('Unable to authenticate user.');
+	exit;
+}
 
-	$db = @mysql_connect($MYSQL_HOST,$MYSQL_LOGIN,$MYSQL_PASS);
+mysqli_query($db,"SET NAMES 'utf8'");
+mysqli_query($db,"SET character_set_results = 'utf8_general_ci', character_set_client = 'utf8_general_ci', character_set_connection = 'utf8_general_ci', character_set_database = 'utf8_general_ci', character_set_server = 'utf8_general_ci'", $db);
 
-	if(!$db){
-		echo('Unable to authenticate user. <br />Error: <b>' . mysql_error() . "</b>");
-		exit;
-	}
-	$connect = @mysql_select_db($MYSQL_DB);
-	if (!$connect){
-		echo('Unable to connect to db <br />Error: <b>' . mysql_error() . "</b>");
-		exit;
-	}
-	mysql_query("SET NAMES 'utf8'");
-	mysql_query("SET character_set_results = 'utf8_general_ci', character_set_client = 'utf8_general_ci', character_set_connection = 'utf8_general_ci', character_set_database = 'utf8_general_ci', character_set_server = 'utf8_general_ci'", $db);
-	//mysql_query("SET character_set_results = 'latin1_swedish_ci', character_set_client = 'latin1_swedish_ci	', character_set_connection = 'latin1_swedish_ci', character_set_database = 'latin1_swedish_ci', character_set_server = 'latin1_swedish_ci'", $db);
-	
+//TODO: Add PHP Version check
+//TODO: Add pdo
+//TODO: Add fallback mysqli if pdo is not available
+//TODO: Add fallback mysql if mysqli is not available
 
-	# what follows are custom database handling functions - required for the ajaxCRUD class
-	# ...but these also may be helpful in your application(s) :-)
-	if (!function_exists('q')) {
-		function q($q, $debug = 0){
-			$r = mysql_query($q);
-			if(mysql_error()){
-				echo mysql_error();
-				echo "$q<br>";
-			}
+if (!function_exists('q')) {
+	function q($q, $debug = 0){
+		global $db;
 
-			if($debug == 1)
-				echo "<br>$q<br>";
+		$r = mysqli_query($db,$q);
 
-			if(stristr(substr($q,0,8),"delete") ||	stristr(substr($q,0,8),"insert") || stristr(substr($q,0,8),"update")){
-				if(mysql_affected_rows() > 0)
-					return true;
-				else
-					return false;
-			}
-			if(mysql_num_rows($r) > 1){
-				while($row = mysql_fetch_array($r, MYSQL_ASSOC)){
-					$results[] = $row;
-				}
-			}
-			else if(mysql_num_rows($r) == 1){
-				$results = array();
-				$results[] = mysql_fetch_array($r,MYSQL_ASSOC);
-			}
-
-			else
-				$results = array();
-			return $results;
+		if(mysqli_error($db)){
+			echo mysqli_error($db);
+			echo "$q<br>";
 		}
-	}
 
-	if (!function_exists('q1')) {
-		function q1($q, $debug = 0){
-			$r = mysql_query($q);
-			if(mysql_error()){
-				echo mysql_error();
-				echo "<br>$q<br>";
-			}
+		if($debug == 1)
+			echo "<br>$q<br>";
 
-			if($debug == 1)
-				echo "<br>$q<br>";
-			$row = @mysql_fetch_array($r);
-
-			if(count($row) == 2)
-				return $row[0];
+		if(stristr(substr($q,0,8),"delete") ||	stristr(substr($q,0,8),"insert") || stristr(substr($q,0,8),"update")){
+			if(mysqli_affected_rows($db) > 0)
+				return true;
 			else
-				return $row;
+				return false;
 		}
-	}
-
-	if (!function_exists('qr')) {
-		function qr($q, $debug = 0){
-			$r = mysql_query($q);
-			if(mysql_error()){
-				echo mysql_error();
-				echo "<br>$q<br>";
+		if(mysqli_num_rows($r) > 1){
+			while($row = mysqli_fetch_array($r, MYSQL_ASSOC)){
+				$results[] = $row;
 			}
-
-			if($debug == 1)
-				echo "<br>$q<br>";
-
-			if(stristr(substr($q,0,8),"delete") ||	stristr(substr($q,0,8),"insert") || stristr(substr($q,0,8),"update")){
-				if(mysql_affected_rows() > 0)
-					return true;
-				else
-					return false;
-			}
-
+		}
+		else if(mysqli_num_rows($r) == 1){
 			$results = array();
-			$results[] = mysql_fetch_array($r);
-			$results = $results[0];
-
-			return $results;
+			$results[] = mysqli_fetch_array($r,MYSQLI_ASSOC);
 		}
+
+		else
+			$results = array();
+		return $results;
 	}
-	
-	if (!function_exists('qa')) {
-		function qa($q, $debug = 0){
-			$r = mysql_query($q);
-			if(mysql_error()){
-				echo mysql_error();
-				echo "<br>$q<br>";
-			}
-	
-			if($debug == 1)
-				echo "<br>$q<br>";
-	
-				if(stristr(substr($q,0,8),"delete") ||	stristr(substr($q,0,8),"insert") || stristr(substr($q,0,8),"update")){
-				if(mysql_affected_rows() > 0)
-					return true;
-					else
-						return false;
-				}
-	
-				$results = array();
-				$results[] = mysql_fetch_object($r);
-				$results = $results[0];
-	
-				return $results;
-			}
-			}
+}
+
+if (!function_exists('q1')) {
+	function q1($q, $debug = 0){
+		global $db;
+		$r = mysqli_query($db,$q);
+		if(mysqli_error($db)){
+			echo mysqli_error($db);
+			echo "<br>$q<br>";
+		}
+
+		if($debug == 1)
+			echo "<br>$q<br>";
+		$row = mysqli_fetch_array($r);
+
+		if(count($row) == 2)
+			return $row[0];
+		else
+			return $row;
+	}
+}
+
+if (!function_exists('qr')) {
+	function qr($q, $debug = 0){
+		global $db;
+		$r = mysqli_query($db,$q);
+		if(mysqli_error($db)){
+			echo mysqli_error($db);
+			echo "<br>$q<br>";
+		}
+
+		if($debug == 1)
+			echo "<br>$q<br>";
+
+		if(stristr(substr($q,0,8),"delete") ||	stristr(substr($q,0,8),"insert") || stristr(substr($q,0,8),"update")){
+			if(mysqli_affected_rows($db) > 0)
+				return true;
+			else
+				return false;
+		}
+
+		$results = array();
+		$results[] = mysqli_fetch_array($db,$r);
+		$results = $results[0];
+
+		return $results;
+	}
+}
+
+if (!function_exists('qa')) {
+	function qa($q, $debug = 0){
+		global $db;
+		$r = mysqli_query($db,$q);
+		if(mysqli_error($db)){
+			echo mysqli_error($db);
+			echo "<br>$q<br>";
+		}
+
+		if($debug == 1)
+			echo "<br>$q<br>";
+
+		if(stristr(substr($q,0,8),"delete") ||	stristr(substr($q,0,8),"insert") || stristr(substr($q,0,8),"update")){
+			if(mysqli_affected_rows($db) > 0)
+				return true;
+			else
+				return false;
+		}
+
+		$results = array();
+		$results[] = mysqli_fetch_object($db,$r);
+		$results = $results[0];
+
+		return $results;
+	}
+}
 ?>
